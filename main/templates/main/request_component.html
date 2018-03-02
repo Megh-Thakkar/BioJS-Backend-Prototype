@@ -1,0 +1,49 @@
+{% extends 'main/base.html' %}
+
+{% block body %}
+{% if messages %}
+<div class="body">
+{% for message in messages %}
+<div class="alert alert-info alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+    {{message}}
+</div>
+{% endfor %}
+</div>
+{% endif %}
+<form method="POST" action="{% url 'main:request_component' %}">
+    {% csrf_token %}
+<div class="row clearfix">
+<div class="card">
+    <div class="header">
+        <h2>
+            Request Component
+        </h2>
+    </div>
+
+    <div class="body">
+            <label for="user_p_list">Choose Contributors</label>
+            <select class="form-control show-tick" name="user_p_list" data-live-search="true" multiple>
+                {% for user_p in user_p_list %}
+                    <option value="{{user_p.id}}">{{user_p.name}}</option>        
+                {% endfor %}
+            </select>
+            <h2 class="card-inside-title">Mail Body</h2>
+            <div class="row clearfix">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <div class="form-line">
+                            <textarea rows="4" class="form-control no-resize" placeholder="Please type here" name="body"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary m-t-15 waves-effect">Send Mail</button>
+            <a href="#" class="btn btn-primary m-t-15 waves-effect">Open Issue on GitHub</a>
+        </div>
+    </div>
+</div>
+</div>
+</form>
+{% endblock %}

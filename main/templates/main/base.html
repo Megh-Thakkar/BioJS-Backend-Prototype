@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% load static %}
+    {% load maintags %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>BioJS Registry</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+
+    <link href="{% static 'main/plugins/bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+
+    <link href="{% static 'main/plugins/node-waves/waves.css' %}" rel="stylesheet" />
+
+    <link href="{% static 'main/plugins/animate-css/animate.css' %}" rel="stylesheet" />
+    <link href="{% static 'main/plugins/bootstrap-select/css/bootstrap-select.css' %}" rel="stylesheet" />
+    
+    <!-- <link href="{% static 'main/plugins/morrisjs/morris.css' %}" rel="stylesheet" /> -->
+    <link href="{% static 'main/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css' %}" rel="stylesheet">
+
+    <link href="{% static 'main/css/style.css' %}" rel="stylesheet">
+    <!-- <link href="{% static 'main/css/materialize.min.css' %}" rel="stylesheet"> -->
+
+    {% block head %}
+    {% endblock %}
+    <link href="{% static 'main/css/themes/all-themes.css' %}" rel="stylesheet" />
+    
+</head>
+
+<body class="theme-cyan">
+    <div class="page-loader-wrapper">
+        <div class="loader">
+            <div class="preloader">
+                <div class="spinner-layer pl-red">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+            <p>Loading...</p>
+        </div>
+    </div>
+    <!-- #END# Page Loader -->
+    <!-- Overlay For Sidebars -->
+    <div class="overlay"></div>
+    <!-- #END# Overlay For Sidebars -->
+    <!-- Top Bar -->
+    <nav class="navbar">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
+                <a href="javascript:void(0);" class="bars"></a>
+                <a class="navbar-brand" href="{% url 'main:home' %}">BioJS Registry</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="pull-right"><a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i class="material-icons">more_vert</i></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- #Top Bar -->
+    <section>
+        <!-- Left Sidebar -->
+        <aside id="leftsidebar" class="sidebar">
+            <!-- User Info -->
+            <div class="user-info">
+                <div class="info-container">
+                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><strong>{{request.user.username}}</strong></div>
+                    <div class="btn-group user-helper-dropdown">
+                        <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a href="#"><i class="material-icons">person</i>Contacts</a></li>
+                            <li role="seperator" class="divider"></li>
+                            {% if request.user.is_authenticated %}
+                            <li><a href="{% url 'main:user_logout' %}"><i class="material-icons">input</i>Sign Out</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- #User Info -->
+            <!-- Menu -->
+            <div class="menu">
+                <ul class="list">
+                    <li class="header">MAIN NAVIGATION</li>
+                    <li class="active">
+                        <a href="{% url 'main:home' %}">
+                            <i class="material-icons">home</i>
+                            <span>Home</span>
+                        </a>
+                        
+                    </li>
+                    {% if request.user.is_authenticated %}
+                    <li class="active">
+                        <a href="{% url 'main:get_user_profile' %}">
+                        <span>My Profile</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="{% url 'main:upload_component' %}">
+                        <span>Upload a new Component</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="{% url 'main:request_component' %}">
+                        <span>Request a New Component</span>
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="active">
+                        <a href="{% url 'main:register' %}">
+                        <span>Register</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="{% url 'main:user_login' %}">
+                        <span>Login</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                    <li class="header">LABELS</li>
+                    <li>
+                        <a href="javascript:void(0);">
+                            <i class="material-icons col-amber">donut_large</i>
+                            <span>The Team</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);">
+                            <i class="material-icons col-light-blue">donut_large</i>
+                            <span>Information</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- #Menu -->
+            <!-- Footer -->
+            <div class="legal">
+                <div class="copyright">
+                    &copy; for BioJS  <a href="javascript:void(0);">Megh Thakkar</a>
+                </div>
+                <div class="version">
+                    <b>Thanks, </b> AdminBSB
+                </div>
+            </div>
+            <!-- #Footer -->
+        </aside>
+        <!-- #END# Left Sidebar -->
+        <!-- Right Sidebar -->
+        <aside id="rightsidebar" class="right-sidebar">
+            <ul class="nav nav-tabs tab-nav-right" role="tablist">
+                <li role="presentation" class="active"><a href="#settings" data-toggle="tab">SETTINGS</a></li>
+            </ul>
+            <div class="tab-content">
+               
+                <div role="tabpanel" class="tab-pane fade in active in active" id="settings">
+                    <div class="demo-settings">
+                        <p>GENERAL LINKS</p>
+                        <p>ACCOUNT SETTINGS</p>
+                        <ul class="setting-list">
+                            {% if request.user.is_authenticated %}
+                            <li>
+                                <span>Logout</span>
+                                <div class="switch">
+                                    <label><input type="checkbox" onclick='window.location.assign("{% url 'main:user_logout' %}")' checked><span class="lever"></span></label>
+                                </div>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <!-- #END# Right Sidebar -->
+    </section>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="block-header">
+                <h2>DASHBOARD</h2>
+            </div>
+            {% show_tags %}
+            {% if messages %}
+            <div class="body">
+            {% for message in messages %}
+            <div class="alert alert-info alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                {{message}}
+            </div>
+            {% endfor %}
+            </div>
+            {% endif %}
+            {% block body %}
+            {% endblock %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Jquery Core Js -->
+    <script src="{% static 'main/plugins/jquery/jquery.min.js' %}"></script>
+
+    <!-- Bootstrap Core Js -->
+    <script src="{% static 'main/plugins/bootstrap/js/bootstrap.js' %}"></script>
+
+    <!-- Select Plugin Js -->
+    <script src="{% static 'main/plugins/bootstrap-select/js/bootstrap-select.js' %}"></script>
+
+    <!-- Slimscroll Plugin Js -->
+    <script src="{% static 'main/plugins/jquery-slimscroll/jquery.slimscroll.js' %}"></script>
+
+    <!-- Waves Effect Plugin Js -->
+    <script src="{% static 'main/plugins/node-waves/waves.js' %}"></script>
+    <!-- <script src="{% static 'main/js/materialize.min.js' %}"></script> -->
+
+
+    <script src="{% static 'main/plugins/jquery-countto/jquery.countTo.js' %}"></script>
+    
+ 
+    <script src="{% static 'main/js/pages/index.js' %}"></script>
+
+    <!-- Demo Js -->
+    <script src="{% static 'main/js/demo.js' %}"></script>
+    
+        <!-- Jquery DataTable Plugin Js -->
+    <script src="{% static 'main/plugins/jquery-datatable/jquery.dataTables.js' %}"></script>
+    <script src="{% static 'main/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js' %}"></script>
+    <script src="{% static 'main/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'main/plugins/jquery-datatable/extensions/export/buttons.flash.min.js' %}"></script>
+    <script src="{% static 'main/plugins/jquery-datatable/extensions/export/jszip.min.js' %}"></script>
+    <script src="{% static 'main/plugins/jquery-datatable/extensions/export/pdfmake.min.js' %}"></script>
+    <script src="{% static 'main/plugins/jquery-datatable/extensions/export/vfs_fonts.js' %}"></script>
+    <script src="{% static 'main/plugins/jquery-datatable/extensions/export/buttons.html5.min.js' %}"></script>
+    <script src="{% static 'main/plugins/jquery-datatable/extensions/export/buttons.print.min.js' %}"></script>
+    <script src="{% static 'main/js/pages/tables/jquery-datatable.js' %}"></script>
+
+    <script src="{% static 'main/js/admin.js' %}"></script>
+    <script src="{% static 'main/js/demo.js' %}"></script>
+    <script src="{% static 'main/js/script.js' %}"></script>
+    
+</body>
+
+</html>

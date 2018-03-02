@@ -1,0 +1,4 @@
+BioJS/keyconfig.py
+*.pyc
+*.sqlite3
+media/
