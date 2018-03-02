@@ -26,5 +26,5 @@ Open the following URL in Chromium/Chrome browser:
 http://127.0.0.1:8000
 ```
 
-I would like to thank gurayyarar for the AdminBSB Template
+I would like to thank gurayyarar for the AdminBSB Template.  
 Enjoy!
